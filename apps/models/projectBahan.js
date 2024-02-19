@@ -35,6 +35,10 @@ exports.ProjectBahanModel = _1.sequelize.define('project_bahan', {
         type: sequelize_1.DataTypes.NUMBER,
         allowNull: false
     },
+    projectBahanLuasBidang: {
+        type: sequelize_1.DataTypes.NUMBER,
+        allowNull: false
+    },
     projectBahanQty: {
         type: sequelize_1.DataTypes.NUMBER,
         allowNull: false
@@ -50,6 +54,10 @@ exports.ProjectBahanModel = _1.sequelize.define('project_bahan', {
     },
     projectBahanUserRevisi: {
         type: sequelize_1.DataTypes.STRING(50),
+        allowNull: true
+    },
+    projectBahanPotonganType: {
+        type: sequelize_1.DataTypes.STRING(200),
         allowNull: true
     },
     projectBahanKet1: {

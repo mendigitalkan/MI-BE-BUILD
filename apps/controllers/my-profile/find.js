@@ -1,45 +1,33 @@
 "use strict";
-// import { type Response } from 'express'
-// import { StatusCodes } from 'http-status-codes'
-// import { ResponseData } from '../../utilities/response'
-// import { Op } from 'sequelize'
-// import { requestChecker } from '../../utilities/requestCheker'
-// export const findMyProfile = async (req: any, res: Response): Promise<any> => {
-//   const emptyField = requestChecker({
-//     requireList: ['x-user-id'],
-//     requestData: req.headers
-//   })
-//   if (emptyField.length > 0) {
-//     const message = `invalid request parameter! require (${emptyField})`
-//     const response = ResponseData.error(message)
-//     return res.status(StatusCodes.BAD_REQUEST).json(response)
-//   }
-//   try {
-//     const admin = await AdminModel.findOne({
-//       where: {
-//         deleted: { [Op.eq]: 0 },
-//         adminId: { [Op.eq]: req.header('x-user-id') }
-//       },
-//       attributes: [
-//         'adminId',
-//         'adminName',
-//         'adminEmail',
-//         'adminRole',
-//         'createdAt',
-//         'updatedAt'
-//       ]
-//     })
-//     if (admin == null) {
-//       const message = 'user not found!'
-//       const response = ResponseData.error(message)
-//       return res.status(StatusCodes.NOT_FOUND).json(response)
-//     }
-//     const response = ResponseData.default
-//     response.data = admin
-//     return res.status(StatusCodes.OK).json(response)
-//   } catch (error: any) {
-//     const message = `unable to process request! error ${error.message}`
-//     const response = ResponseData.error(message)
-//     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response)
-//   }
-// }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findMyProfile = void 0;
+const http_status_codes_1 = require("http-status-codes");
+const response_1 = require("../../utilities/response");
+const sequelize_1 = require("sequelize");
+const user_1 = require("../../models/user");
+const findMyProfile = async (req, res) => {
+    try {
+        const user = await user_1.UserModel.findOne({
+            where: {
+                deleted: { [sequelize_1.Op.eq]: 0 },
+                userId: { [sequelize_1.Op.eq]: req.body?.user?.userId }
+            },
+            attributes: ['userId', 'userName', 'createdAt', 'updatedAt']
+        });
+        console.log(user);
+        if (user == null) {
+            const message = 'user not found!';
+            const response = response_1.ResponseData.error(message);
+            return res.status(http_status_codes_1.StatusCodes.NOT_FOUND).json(response);
+        }
+        const response = response_1.ResponseData.default;
+        response.data = user;
+        return res.status(http_status_codes_1.StatusCodes.OK).json(response);
+    }
+    catch (error) {
+        const message = `unable to process request! error ${error.message}`;
+        const response = response_1.ResponseData.error(message);
+        return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json(response);
+    }
+};
+exports.findMyProfile = findMyProfile;

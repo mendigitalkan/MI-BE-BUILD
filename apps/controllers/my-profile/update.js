@@ -1,56 +1,43 @@
 "use strict";
-// import { type Response } from 'express'
-// import { StatusCodes } from 'http-status-codes'
-// import { ResponseData } from '../../utilities/response'
-// import { Op } from 'sequelize'
-// import { type AdminAttributes, AdminModel } from '../../models/admin'
-// import { requestChecker } from '../../utilities/requestCheker'
-// import { CONFIG } from '../../configs'
-// export const updateMyProfile = async (req: any, res: Response): Promise<any> => {
-//   const requestBody = req.body as AdminAttributes
-//   const emptyField = requestChecker({
-//     requireList: ['x-user-id'],
-//     requestData: req.headers
-//   })
-//   if (emptyField.length > 0) {
-//     const message = `invalid request parameter! require (${emptyField})`
-//     const response = ResponseData.error(message)
-//     return res.status(StatusCodes.BAD_REQUEST).json(response)
-//   }
-//   try {
-//     if ('adminPassword' in requestBody) {
-//       // eslint-disable-next-line @typescript-eslint/no-var-requires
-//       requestBody.adminPassword = require('crypto')
-//         .createHash('sha1')
-//         .update(requestBody.adminPassword + CONFIG.secret.passwordEncryption)
-//         .digest('hex')
-//     }
-//     const newData: AdminAttributes | any = {
-//       ...(requestBody.adminName.length > 0 && {
-//         adminName: requestBody.adminName
-//       }),
-//       ...(requestBody.adminEmail.length > 0 && {
-//         adminEmail: requestBody.adminEmail
-//       }),
-//       ...(requestBody.adminPassword.length > 0 && {
-//         adminPassword: requestBody.adminPassword
-//       }),
-//       ...(requestBody.adminRole.length > 0 && {
-//         adminRole: requestBody.adminRole
-//       })
-//     }
-//     await AdminModel.update(newData, {
-//       where: {
-//         deleted: { [Op.eq]: 0 },
-//         adminId: { [Op.eq]: req.header('x-user-id') }
-//       }
-//     })
-//     const response = ResponseData.default
-//     response.data = { message: 'success' }
-//     return res.status(StatusCodes.OK).json(response)
-//   } catch (error: any) {
-//     const message = `unable to process request! error ${error.message}`
-//     const response = ResponseData.error(message)
-//     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response)
-//   }
-// }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateMyProfile = void 0;
+const http_status_codes_1 = require("http-status-codes");
+const response_1 = require("../../utilities/response");
+const sequelize_1 = require("sequelize");
+const configs_1 = require("../../configs");
+const user_1 = require("../../models/user");
+const updateMyProfile = async (req, res) => {
+    const requestBody = req.body;
+    try {
+        if ('userPassword' in requestBody) {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            requestBody.userPassword = require('crypto')
+                .createHash('sha1')
+                .update(requestBody.userPassword + configs_1.CONFIG.secret.passwordEncryption)
+                .digest('hex');
+        }
+        const newData = {
+            ...(requestBody.userName.length > 0 && {
+                userName: requestBody.userName
+            }),
+            ...(requestBody.userPassword.length > 0 && {
+                userPassword: requestBody.userPassword
+            })
+        };
+        await user_1.UserModel.update(newData, {
+            where: {
+                deleted: { [sequelize_1.Op.eq]: 0 },
+                userId: { [sequelize_1.Op.eq]: req.body?.user?.userId }
+            }
+        });
+        const response = response_1.ResponseData.default;
+        response.data = { message: 'success' };
+        return res.status(http_status_codes_1.StatusCodes.OK).json(response);
+    }
+    catch (error) {
+        const message = `unable to process request! error ${error.message}`;
+        const response = response_1.ResponseData.error(message);
+        return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json(response);
+    }
+};
+exports.updateMyProfile = updateMyProfile;

@@ -71,10 +71,6 @@ exports.ProjectKerjaModel = _1.sequelize.define('project_kerja', {
     projectKerjaDisc: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: true
-    },
-    projectKerjaImages: {
-        type: sequelize_1.DataTypes.TEXT,
-        allowNull: true
     }
 }, {
     ..._1.sequelize,

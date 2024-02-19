@@ -10,6 +10,7 @@ const projectBarang_1 = require("../../models/projectBarang");
 const projectBahan_1 = require("../../models/projectBahan");
 const projectCetak_1 = require("../../models/projectCetak");
 const projectBahanLain_1 = require("../../models/projectBahanLain");
+const projectGambar_1 = require("../../models/projectGambar");
 const createProject = async (req, res) => {
     const payload = req.body;
     try {
@@ -20,6 +21,7 @@ const createProject = async (req, res) => {
         await projectBahan_1.ProjectBahanModel.bulkCreate(payload.formProjectBahan);
         await projectCetak_1.ProjectCetakModel.bulkCreate(payload.formProjectPrinting);
         await projectBahanLain_1.ProjectBahanLainModel.bulkCreate(payload.formProjectBahanLain);
+        await projectGambar_1.ProjectGambarModel.bulkCreate(payload.formProjectGambar);
         const response = response_1.ResponseData.default;
         const result = { message: 'success' };
         response.data = result;

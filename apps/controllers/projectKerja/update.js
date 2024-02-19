@@ -71,9 +71,6 @@ const updateProjectKerja = async (req, res) => {
             }),
             ...(requestBody.projectKerjaDisc?.toString().length > 0 && {
                 projectKerjaDisc: requestBody.projectKerjaDisc
-            }),
-            ...(requestBody.projectKerjaImages?.toString().length > 0 && {
-                projectKerjaImages: requestBody.projectKerjaImages
             })
         };
         await projectKerja_1.ProjectKerjaModel.update(newData, {

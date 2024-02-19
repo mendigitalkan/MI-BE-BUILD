@@ -14,20 +14,10 @@ const findAllUser = async (req, res) => {
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
                 ...(Boolean(req.query.search) && {
-                    [sequelize_1.Op.or]: [
-                        { userName: { [sequelize_1.Op.like]: `%${req.query.search}%` } },
-                        { userEmail: { [sequelize_1.Op.like]: `%${req.query.search}%` } }
-                    ]
+                    [sequelize_1.Op.or]: [{ userName: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
-            attributes: [
-                'userId',
-                'userName',
-                'userEmail',
-                'userPhoneNumber',
-                'createdAt',
-                'updatedAt'
-            ],
+            attributes: ['userId', 'userName', 'createdAt', 'updatedAt'],
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {
                 limit: page.limit,
@@ -63,14 +53,7 @@ const findOneUser = async (req, res) => {
                 deleted: { [sequelize_1.Op.eq]: 0 },
                 userId: { [sequelize_1.Op.eq]: requestParams.userId }
             },
-            attributes: [
-                'userId',
-                'userName',
-                'userEmail',
-                'userPhoneNumber',
-                'createdAt',
-                'updatedAt'
-            ]
+            attributes: ['userId', 'userName', 'createdAt', 'updatedAt']
         });
         if (user == null) {
             const message = 'user not found!';

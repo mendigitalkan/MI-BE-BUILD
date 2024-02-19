@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findDetailCustomer = exports.findAllCustomer = void 0;
+exports.findDetailBahan = exports.findAllBahan = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../../utilities/response");
 const sequelize_1 = require("sequelize");
 const pagination_1 = require("../../utilities/pagination");
 const requestCheker_1 = require("../../utilities/requestCheker");
-const customers_1 = require("../../models/customers");
-const findAllCustomer = async (req, res) => {
+const bahan_1 = require("../../models/bahan");
+const findAllBahan = async (req, res) => {
     try {
         const page = new pagination_1.Pagination(parseInt(req.query.page) ?? 0, parseInt(req.query.size) ?? 10);
-        const result = await customers_1.CustomersModel.findAndCountAll({
+        const result = await bahan_1.BahanModel.findAndCountAll({
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
                 ...(Boolean(req.query.search) && {
-                    [sequelize_1.Op.or]: [{ customerNama: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
+                    [sequelize_1.Op.or]: [{ bahanNama: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
             order: [['id', 'desc']],
@@ -33,11 +33,11 @@ const findAllCustomer = async (req, res) => {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json(response);
     }
 };
-exports.findAllCustomer = findAllCustomer;
-const findDetailCustomer = async (req, res) => {
+exports.findAllBahan = findAllBahan;
+const findDetailBahan = async (req, res) => {
     const requestParams = req.params;
     const emptyField = (0, requestCheker_1.requestChecker)({
-        requireList: ['customerKode'],
+        requireList: ['bahanKode'],
         requestData: requestParams
     });
     if (emptyField.length > 0) {
@@ -46,19 +46,19 @@ const findDetailCustomer = async (req, res) => {
         return res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json(response);
     }
     try {
-        const customer = await customers_1.CustomersModel.findOne({
+        const bahan = await bahan_1.BahanModel.findOne({
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
-                customerKode: { [sequelize_1.Op.eq]: requestParams.customerKode }
+                bahanKode: { [sequelize_1.Op.eq]: requestParams.bahanKode }
             }
         });
-        if (customer === null) {
-            const message = 'customer not found!';
+        if (bahan === null) {
+            const message = 'bahan not found!';
             const response = response_1.ResponseData.error(message);
             return res.status(http_status_codes_1.StatusCodes.NOT_FOUND).json(response);
         }
         const response = response_1.ResponseData.default;
-        response.data = customer;
+        response.data = bahan;
         return res.status(http_status_codes_1.StatusCodes.OK).json(response);
     }
     catch (error) {
@@ -67,4 +67,4 @@ const findDetailCustomer = async (req, res) => {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json(response);
     }
 };
-exports.findDetailCustomer = findDetailCustomer;
+exports.findDetailBahan = findDetailBahan;

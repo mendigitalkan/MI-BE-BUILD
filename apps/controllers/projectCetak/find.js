@@ -17,7 +17,7 @@ const findAllProjectCetak = async (req, res) => {
                     [sequelize_1.Op.or]: [{ supplierEmail: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 }),
                 ...(Boolean(req.query.projectKerjaKode) && {
-                    projectBahanLainProjectKerjaKode: {
+                    projectCetakProjectKerjaKode: {
                         [sequelize_1.Op.eq]: req.query.projectKerjaKode
                     }
                 })

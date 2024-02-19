@@ -14,7 +14,10 @@ const findAllProjectKerja = async (req, res) => {
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
                 ...(Boolean(req.query.search) && {
-                    [sequelize_1.Op.or]: [{ projectKerjaKode: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
+                    [sequelize_1.Op.or]: [
+                        { projectKerjaKode: { [sequelize_1.Op.like]: `%${req.query.search}%` } },
+                        { projectKerjaCustomerNama: { [sequelize_1.Op.like]: `%${req.query.search}%` } }
+                    ]
                 })
             },
             order: [['id', 'desc']],

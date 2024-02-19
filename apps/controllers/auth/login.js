@@ -11,7 +11,7 @@ const jwt_1 = require("../../utilities/jwt");
 const userLogin = async (req, res) => {
     const requestBody = req.body;
     const emptyField = (0, requestCheker_1.requestChecker)({
-        requireList: ['userEmail', 'userPassword'],
+        requireList: ['userName', 'userPassword'],
         requestData: requestBody
     });
     if (emptyField.length > 0) {
@@ -23,7 +23,7 @@ const userLogin = async (req, res) => {
         const user = await user_1.UserModel.findOne({
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
-                userEmail: { [sequelize_1.Op.eq]: requestBody.userEmail }
+                userName: { [sequelize_1.Op.eq]: requestBody.userName }
             }
         });
         if (user == null) {

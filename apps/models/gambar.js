@@ -12,23 +12,15 @@ const zygote_1 = require("./zygote");
 exports.GambarModel = _1.sequelize.define('gambar', {
     ...zygote_1.ZygoteModel,
     gambarKode: {
+        type: sequelize_1.DataTypes.STRING(200),
+        allowNull: false
+    },
+    gambarProjectKerjaKode: {
         type: sequelize_1.DataTypes.STRING(20),
         allowNull: false
     },
-    gambarBrgProject: {
-        type: sequelize_1.DataTypes.STRING(15),
-        allowNull: false
-    },
-    gambarNamaFile: {
-        type: sequelize_1.DataTypes.STRING(200),
-        allowNull: false
-    },
-    gambarKet1: {
-        type: sequelize_1.DataTypes.STRING(200),
-        allowNull: false
-    },
-    gambarKet2: {
-        type: sequelize_1.DataTypes.STRING(200),
+    gambarUrl: {
+        type: sequelize_1.DataTypes.STRING(20),
         allowNull: false
     }
 }, {

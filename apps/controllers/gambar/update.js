@@ -1,17 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRegister = void 0;
+exports.updateGambar = void 0;
 const http_status_codes_1 = require("http-status-codes");
-const sequelize_1 = require("sequelize");
 const response_1 = require("../../utilities/response");
-const user_1 = require("../../models/user");
 const requestCheker_1 = require("../../utilities/requestCheker");
-const scure_password_1 = require("../../utilities/scure_password");
-const uuid_1 = require("uuid");
-const userRegister = async (req, res) => {
+const sequelize_1 = require("sequelize");
+const projectGambar_1 = require("../../models/projectGambar");
+const updateGambar = async (req, res) => {
     const requestBody = req.body;
     const emptyField = (0, requestCheker_1.requestChecker)({
-        requireList: ['userName', 'userPassword'],
+        requireList: ['gambarKode'],
         requestData: requestBody
     });
     if (emptyField.length > 0) {
@@ -20,23 +18,34 @@ const userRegister = async (req, res) => {
         return res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json(response);
     }
     try {
-        const user = await user_1.UserModel.findOne({
-            raw: true,
+        const gambar = await projectGambar_1.GambarModel.findOne({
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
-                userName: { [sequelize_1.Op.eq]: requestBody.userName }
+                gambarKode: { [sequelize_1.Op.eq]: requestBody.gambarKode }
             }
         });
-        if (user != null) {
-            const message = `user name ${user.userName} sudah terdaftar. Silahkan gunakan yang lain`;
+        if (gambar === null) {
+            const message = 'gambar not found!';
             const response = response_1.ResponseData.error(message);
             return res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json(response);
         }
-        requestBody.userPassword = (0, scure_password_1.hashPassword)(requestBody.userPassword);
-        requestBody.userId = (0, uuid_1.v4)();
-        await user_1.UserModel.create(requestBody);
+        const newData = {
+            ...(requestBody.gambarUrl?.length > 0 && {
+                gambarUrl: requestBody.gambarUrl
+            }),
+            ...(requestBody.gambarProjectKerjaKode?.length > 0 && {
+                gambarProjectKerjaKode: requestBody.gambarProjectKerjaKode
+            })
+        };
+        await projectGambar_1.GambarModel.update(newData, {
+            where: {
+                deleted: { [sequelize_1.Op.eq]: 0 },
+                gambarKode: { [sequelize_1.Op.eq]: requestBody.gambarKode }
+            }
+        });
         const response = response_1.ResponseData.default;
-        response.data = { message: 'success' };
+        const result = { message: 'success' };
+        response.data = result;
         return res.status(http_status_codes_1.StatusCodes.CREATED).json(response);
     }
     catch (error) {
@@ -45,4 +54,4 @@ const userRegister = async (req, res) => {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json(response);
     }
 };
-exports.userRegister = userRegister;
+exports.updateGambar = updateGambar;

@@ -19,13 +19,10 @@ exports.UserModel = _1.sequelize.define('users', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
-    userEmail: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
-    },
-    userPhoneNumber: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+    userRole: {
+        type: sequelize_1.DataTypes.ENUM('admin', 'user'),
+        allowNull: false,
+        defaultValue: 'user'
     }
 }, {
     ..._1.sequelize,

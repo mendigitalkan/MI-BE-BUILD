@@ -17,6 +17,16 @@ const findAllWarna = async (req, res) => {
                     [sequelize_1.Op.or]: [{ warnaKode: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
+            attributes: [
+                'warnaKode',
+                'warnaKodeBahan',
+                'warnaNama',
+                'warnaHarga',
+                'warnaNilai1',
+                'warnaNilai2',
+                'warnaKet1',
+                'warnaKet2'
+            ],
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {
                 limit: page.limit,
