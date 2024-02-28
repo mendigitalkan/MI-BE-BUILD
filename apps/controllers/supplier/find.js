@@ -37,7 +37,7 @@ exports.findAllSupplier = findAllSupplier;
 const findDetailSupplier = async (req, res) => {
     const requestParams = req.params;
     const emptyField = (0, requestCheker_1.requestChecker)({
-        requireList: ['seupplierKode'],
+        requireList: ['supplierKode'],
         requestData: requestParams
     });
     if (emptyField.length > 0) {

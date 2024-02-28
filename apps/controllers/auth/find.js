@@ -13,11 +13,12 @@ const findAllUser = async (req, res) => {
         const users = await user_1.UserModel.findAndCountAll({
             where: {
                 deleted: { [sequelize_1.Op.eq]: 0 },
+                userId: { [sequelize_1.Op.not]: req.body?.user?.userId },
                 ...(Boolean(req.query.search) && {
                     [sequelize_1.Op.or]: [{ userName: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
-            attributes: ['userId', 'userName', 'createdAt', 'updatedAt'],
+            attributes: ['id', 'userId', 'userName', 'userRole', 'createdAt', 'updatedAt'],
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {
                 limit: page.limit,

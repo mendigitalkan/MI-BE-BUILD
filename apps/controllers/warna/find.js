@@ -17,16 +17,6 @@ const findAllWarna = async (req, res) => {
                     [sequelize_1.Op.or]: [{ warnaKode: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
-            attributes: [
-                'warnaKode',
-                'warnaKodeBahan',
-                'warnaNama',
-                'warnaHarga',
-                'warnaNilai1',
-                'warnaNilai2',
-                'warnaKet1',
-                'warnaKet2'
-            ],
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {
                 limit: page.limit,
@@ -47,7 +37,7 @@ exports.findAllWarna = findAllWarna;
 const findDetailWarna = async (req, res) => {
     const requestParams = req.params;
     const emptyField = (0, requestCheker_1.requestChecker)({
-        requireList: ['seupplierKode'],
+        requireList: ['warnaKode'],
         requestData: requestParams
     });
     if (emptyField.length > 0) {

@@ -10,11 +10,11 @@ const createCetakan = async (req, res) => {
     const requestBody = req.body;
     const emptyField = (0, requestCheker_1.requestChecker)({
         requireList: [
-            ' cetakanNama',
-            ' cetakanSatuan',
-            ' cetakanHarga',
-            ' cetakanKet1',
-            ' cetakanKet2'
+            'cetakanNama',
+            'cetakanSatuan',
+            'cetakanHarga',
+            'cetakanKet1',
+            'cetakanKet2'
         ],
         requestData: requestBody
     });

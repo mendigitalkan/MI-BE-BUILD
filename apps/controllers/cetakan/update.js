@@ -32,6 +32,18 @@ const updateCetakan = async (req, res) => {
         const newData = {
             ...(requestBody.cetakanNama?.length > 0 && {
                 cetakanNama: requestBody.cetakanNama
+            }),
+            ...(requestBody.cetakanSatuan?.length > 0 && {
+                cetakanSatuan: requestBody.cetakanSatuan
+            }),
+            ...(requestBody.cetakanHarga.toString()?.length > 0 && {
+                cetakanHarga: requestBody.cetakanHarga
+            }),
+            ...(requestBody.cetakanKet1.toString()?.length > 0 && {
+                cetakanKet1: requestBody.cetakanKet1
+            }),
+            ...(requestBody.cetakanKet2.toString()?.length > 0 && {
+                cetakanKet2: requestBody.cetakanKet2
             })
         };
         await cetakan_1.CetakanModel.update(newData, {

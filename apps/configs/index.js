@@ -24,10 +24,10 @@ exports.CONFIG = {
     maximumUploadFile: 1024,
     dataBase: {
         development: {
-            username: 'jasaapku_mi',
-            password: 'qwerty@2024',
-            database: 'jasaapku_project_mi',
-            host: '119.235.248.134',
+            username: 'root',
+            password: 'v4l3nt1n3d4y14022024',
+            database: 'mi-database',
+            host: 'localhost',
             dialect: 'mysql',
             logging: process.env.DB_LOG === 'true'
         },

@@ -32,6 +32,27 @@ const updateSupplier = async (req, res) => {
         const newData = {
             ...(requestBody.supplierEmail?.toString().length > 0 && {
                 supplierEmail: requestBody.supplierEmail
+            }),
+            ...(requestBody.supplierAlamat?.toString().length > 0 && {
+                supplierAlamat: requestBody.supplierAlamat
+            }),
+            ...(requestBody.supplierKota?.toString().length > 0 && {
+                supplierKota: requestBody.supplierKota
+            }),
+            ...(requestBody.supplierKontakPerson?.toString().length > 0 && {
+                supplierKontakPerson: requestBody.supplierKontakPerson
+            }),
+            ...(requestBody.supplierTelp1?.toString().length > 0 && {
+                supplierTelp1: requestBody.supplierTelp1
+            }),
+            ...(requestBody.supplierTelp2?.toString().length > 0 && {
+                supplierTelp2: requestBody.supplierTelp2
+            }),
+            ...(requestBody.supplierHp1?.toString().length > 0 && {
+                supplierHp1: requestBody.supplierHp1
+            }),
+            ...(requestBody.supplierHp2?.toString().length > 0 && {
+                supplierHp2: requestBody.supplierHp2
             })
         };
         await supplier_1.SupplierModel.update(newData, {

@@ -32,6 +32,24 @@ const updateBiayaKerja = async (req, res) => {
         const newData = {
             ...(requestBody.biayaKerjaNama?.length > 0 && {
                 biayaKerjaNama: requestBody.biayaKerjaNama
+            }),
+            ...(requestBody.biayaKerjaKapasitas.toString()?.length > 0 && {
+                biayaKerjaKapasitas: requestBody.biayaKerjaKapasitas
+            }),
+            ...(requestBody.biayaKerjaHarga.toString()?.length > 0 && {
+                biayaKerjaHarga: requestBody.biayaKerjaHarga
+            }),
+            ...(requestBody.biayaKerjaNilai1.toString()?.length > 0 && {
+                biayaKerjaNilai1: requestBody.biayaKerjaNilai1
+            }),
+            ...(requestBody.biayaKerjaNilai2.toString()?.length > 0 && {
+                biayaKerjaNilai2: requestBody.biayaKerjaNilai2
+            }),
+            ...(requestBody.biayaKerjaKet1.toString()?.length > 0 && {
+                biayaKerjaKet1: requestBody.biayaKerjaKet1
+            }),
+            ...(requestBody.biayaKerjaKet2.toString()?.length > 0 && {
+                biayaKerjaKet2: requestBody.biayaKerjaKet2
             })
         };
         await biayaKerja_1.BiayaKerjaModel.update(newData, {

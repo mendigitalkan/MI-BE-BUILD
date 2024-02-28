@@ -9,13 +9,15 @@ const requestCheker_1 = require("../../utilities/requestCheker");
 const customers_1 = require("../../models/customers");
 const findAllCustomer = async (req, res) => {
     try {
+        console.log(req.query.search);
+        console.log(Boolean(req.query.search));
         const page = new pagination_1.Pagination(parseInt(req.query.page) ?? 0, parseInt(req.query.size) ?? 10);
         const result = await customers_1.CustomersModel.findAndCountAll({
             where: {
-                deleted: { [sequelize_1.Op.eq]: 0 },
-                ...(Boolean(req.query.search) && {
-                    [sequelize_1.Op.or]: [{ customerNama: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
-                })
+                deleted: { [sequelize_1.Op.eq]: 0 }
+                // ...(Boolean(req.query.search) && {
+                //   [Op.or]: [{ customerNama: { [Op.like]: `%${req.query.search}%` } }]
+                // })
             },
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {

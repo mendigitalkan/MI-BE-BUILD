@@ -32,6 +32,42 @@ const updateCustomer = async (req, res) => {
         const newData = {
             ...(requestBody.customerEmail?.length > 0 && {
                 customerEmail: requestBody.customerEmail
+            }),
+            ...(requestBody.customerNama?.length > 0 && {
+                customerNama: requestBody.customerNama
+            }),
+            ...(requestBody.customerAlamat?.length > 0 && {
+                customerAlamat: requestBody.customerAlamat
+            }),
+            ...(requestBody.customerKota?.length > 0 && {
+                customerKota: requestBody.customerKota
+            }),
+            ...(requestBody.customerKontakPerson?.length > 0 && {
+                customerKontakPerson: requestBody.customerKontakPerson
+            }),
+            ...(requestBody.customerEmail?.length > 0 && {
+                customerEmail: requestBody.customerEmail
+            }),
+            ...(requestBody.customerTelp1?.length > 0 && {
+                customerTelp1: requestBody.customerTelp1
+            }),
+            ...(requestBody.customerTelp2?.length > 0 && {
+                customerTelp2: requestBody.customerTelp2
+            }),
+            ...(requestBody.customerHp1?.length > 0 && {
+                customerHp1: requestBody.customerHp1
+            }),
+            ...(requestBody.customerHp2?.length > 0 && {
+                customerHp2: requestBody.customerHp2
+            }),
+            ...(requestBody.customerStatus?.length > 0 && {
+                customerStatus: requestBody.customerStatus
+            }),
+            ...(requestBody.customerSales?.length > 0 && {
+                customerSales: requestBody.customerSales
+            }),
+            ...(requestBody.customerKet1?.length > 0 && {
+                customerKet1: requestBody.customerKet1
             })
         };
         await customers_1.CustomersModel.update(newData, {

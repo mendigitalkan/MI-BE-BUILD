@@ -17,16 +17,6 @@ const findAllBiayaKerja = async (req, res) => {
                     [sequelize_1.Op.or]: [{ biayaKerjaNama: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
                 })
             },
-            attributes: [
-                'biayaKerjaKode',
-                'biayaKerjaNama',
-                'biayaKerjaKapasitas',
-                'biayaKerjaHarga',
-                'biayaKerjaNilai1',
-                'biayaKerjaNilai2',
-                'biayaKerjaKet1',
-                'biayaKerjaKet2'
-            ],
             order: [['id', 'desc']],
             ...(req.query.pagination === 'true' && {
                 limit: page.limit,

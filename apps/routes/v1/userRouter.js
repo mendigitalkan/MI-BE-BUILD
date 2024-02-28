@@ -12,8 +12,10 @@ const middlewares_1 = require("../../middlewares");
 const userRoutes = (app) => {
     const router = express_1.default.Router();
     app.use('/api/v1/users', router);
-    router.get('/list', middlewares_1.middleware.useAuthorization, async (req, res) => await auth_1.UsersController.findAll(req, res));
+    router.get('/', middlewares_1.middleware.useAuthorization, async (req, res) => await auth_1.UsersController.findAll(req, res));
     router.get('/detail/:userId', middlewares_1.middleware.useAuthorization, async (req, res) => await auth_1.UsersController.findOne(req, res));
+    router.patch('/', async (req, res) => await auth_1.UsersController.update(req, res));
+    router.delete('/', async (req, res) => await auth_1.UsersController.remove(req, res));
     router.post('/login', async (req, res) => await auth_1.UsersController.login(req, res));
     router.post('/register', async (req, res) => await auth_1.UsersController.register(req, res));
 };

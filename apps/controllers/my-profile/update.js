@@ -22,6 +22,9 @@ const updateMyProfile = async (req, res) => {
             }),
             ...(requestBody.userPassword.length > 0 && {
                 userPassword: requestBody.userPassword
+            }),
+            ...(requestBody.userRole.length > 0 && {
+                userRole: requestBody.userRole
             })
         };
         await user_1.UserModel.update(newData, {

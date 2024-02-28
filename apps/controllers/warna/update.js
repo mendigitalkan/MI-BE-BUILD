@@ -30,8 +30,26 @@ const updateWarna = async (req, res) => {
             return res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json(response);
         }
         const newData = {
+            ...(requestBody.warnaKodeBahan?.toString().length > 0 && {
+                warnaKodeBahan: requestBody.warnaKodeBahan
+            }),
+            ...(requestBody.warnaNama?.toString().length > 0 && {
+                warnaNama: requestBody.warnaNama
+            }),
             ...(requestBody.warnaHarga?.toString().length > 0 && {
                 warnaHarga: requestBody.warnaHarga
+            }),
+            ...(requestBody.warnaNilai1?.toString().length > 0 && {
+                warnaNilai1: requestBody.warnaNilai1
+            }),
+            ...(requestBody.warnaNilai2?.toString().length > 0 && {
+                warnaNilai2: requestBody.warnaNilai2
+            }),
+            ...(requestBody.warnaKet1?.toString().length > 0 && {
+                warnaKet1: requestBody.warnaKet1
+            }),
+            ...(requestBody.warnaKet2?.toString().length > 0 && {
+                warnaKet2: requestBody.warnaKet2
             })
         };
         await warna_1.WarnaModel.update(newData, {

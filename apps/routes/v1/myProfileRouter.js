@@ -7,12 +7,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.myProfileRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const middlewares_1 = require("../../middlewares");
 const my_profile_1 = require("../../controllers/my-profile");
+const middlewares_1 = require("../../middlewares");
 const myProfileRouter = (app) => {
     const router = express_1.default.Router();
-    app.use('/api/v1/my-profile', middlewares_1.middleware.useAuthorization, router);
-    router.get('/', async (req, res) => await my_profile_1.myProfileController.find(req, res));
-    router.patch('/', async (req, res) => await my_profile_1.myProfileController.update(req, res));
+    app.use('/api/v1/my-profile', router);
+    router.get('/', middlewares_1.middleware.useAuthorization, async (req, res) => await my_profile_1.myProfileController.find(req, res));
+    router.patch('/', middlewares_1.middleware.useAuthorization, async (req, res) => await my_profile_1.myProfileController.update(req, res));
+    router.post('/login', async (req, res) => await my_profile_1.myProfileController.login(req, res));
 };
 exports.myProfileRouter = myProfileRouter;
