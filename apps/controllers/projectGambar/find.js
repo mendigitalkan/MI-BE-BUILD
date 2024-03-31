@@ -16,6 +16,9 @@ const findAllGambar = async (req, res) => {
                 deleted: { [sequelize_1.Op.eq]: 0 },
                 ...(Boolean(req.query.search) && {
                     [sequelize_1.Op.or]: [{ gambarProjectKerjaKode: { [sequelize_1.Op.like]: `%${req.query.search}%` } }]
+                }),
+                ...(Boolean(req.query.projectKerjaKode) && {
+                    projectGambarProjectKerjaKode: { [sequelize_1.Op.eq]: req.query.projectKerjaKode }
                 })
             },
             order: [['id', 'desc']],

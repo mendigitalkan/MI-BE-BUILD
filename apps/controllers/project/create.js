@@ -14,8 +14,6 @@ const projectGambar_1 = require("../../models/projectGambar");
 const createProject = async (req, res) => {
     const payload = req.body;
     try {
-        console.log('_____________________');
-        console.log(payload);
         await projectKerja_1.ProjectKerjaModel.create(payload.formProjectKerja);
         await projectBarang_1.ProjectBarangModel.create(payload.formProjectBarang);
         await projectBahan_1.ProjectBahanModel.bulkCreate(payload.formProjectBahan);

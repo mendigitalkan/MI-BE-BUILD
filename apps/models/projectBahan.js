@@ -20,7 +20,7 @@ exports.ProjectBahanModel = _1.sequelize.define('project_bahan', {
         allowNull: false
     },
     projectBahanKodeBahan: {
-        type: sequelize_1.DataTypes.STRING(5),
+        type: sequelize_1.DataTypes.STRING(50),
         allowNull: false
     },
     projectBahanKodeWarna: {
